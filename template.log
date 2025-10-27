@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.19)  19 OCT 2025 00:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.19)  19 OCT 2025 01:48
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -615,31 +615,31 @@ Package hyperref Info: Option `colorlinks' set `true' on input line 213.
 \@quotelevel=\count422
 \@quotereset=\count423
 LaTeX Font Info:    Trying to load font information for T1+pplx on input line 6
-2.
+9.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/t1pplx.fd
 File: t1pplx.fd 2004/09/06 font definitions for T1/pplx.
 )
 (./template.aux)
 \openout1 = `template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -698,20 +698,20 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \big@size=\dimen190
-LaTeX Info: Redefining \microtypecontext on input line 62.
-Package microtype Info: Applying patch `item' on input line 62.
-Package microtype Info: Applying patch `toc' on input line 62.
-Package microtype Info: Applying patch `eqnum' on input line 62.
-Package microtype Info: Applying patch `footnote' on input line 62.
-Package microtype Info: Applying patch `verbatim' on input line 62.
-LaTeX Info: Redefining \microtypesetup on input line 62.
+LaTeX Info: Redefining \microtypecontext on input line 69.
+Package microtype Info: Applying patch `item' on input line 69.
+Package microtype Info: Applying patch `toc' on input line 69.
+Package microtype Info: Applying patch `eqnum' on input line 69.
+Package microtype Info: Applying patch `footnote' on input line 69.
+Package microtype Info: Applying patch `verbatim' on input line 69.
+LaTeX Info: Redefining \microtypesetup on input line 69.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 62.
+LaTeX Info: Redefining \showhyphens on input line 69.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -733,8 +733,8 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'template.bbl' found.
 
 (./template.bbl)
-Package biblatex Info: Reference section=0 on input line 62.
-Package biblatex Info: Reference segment=0 on input line 62.
+Package biblatex Info: Reference section=0 on input line 69.
+Package biblatex Info: Reference segment=0 on input line 69.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
@@ -748,38 +748,38 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 Package color Info: Driver file: pdftex.def on input line 149.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx))
-Package hyperref Info: Link coloring ON on input line 62.
+Package hyperref Info: Link coloring ON on input line 69.
 
 (./template.out) (./template.out)
 \@outlinefile=\write4
 \openout4 = `template.out'.
 
 LaTeX Font Info:    Trying to load font information for OT1+pplx on input line 
-65.
+72.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pplx.fd
 File: ot1pplx.fd 2004/09/06 font definitions for OT1/pplx.
 )
 LaTeX Font Info:    Trying to load font information for OML+zplm on input line 
-65.
+72.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 
-65.
+72.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 
-65.
+72.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
 LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 
-65.
+72.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1zplm.fd
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
@@ -788,12 +788,10 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zplm' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for TS1+pplx on input line 
-65.
 
-(/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ts1pplx.fd
-File: ts1pplx.fd 2004/09/06 font definitions for TS1/pplx.
-)
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -802,19 +800,25 @@ ocal/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
+LaTeX Font Info:    Trying to load font information for TS1+pplx on input line 
+107.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ts1pplx.fd
+File: ts1pplx.fd 2004/09/06 font definitions for TS1/pplx.
+)
 
 
 
 [2]
-<Figures/Tolmukapea.jpg, id=76, 616.704pt x 448.5558pt>
+<Figures/Tolmukapea.jpg, id=75, 616.704pt x 448.5558pt>
 File: Figures/Tolmukapea.jpg Graphic file (type jpg)
 <use Figures/Tolmukapea.jpg>
-Package pdftex.def Info: Figures/Tolmukapea.jpg  used on input line 170.
+Package pdftex.def Info: Figures/Tolmukapea.jpg  used on input line 177.
 (pdftex.def)             Requested size: 231.84843pt x 168.63235pt.
-<Figures/Fibroblastid.jpg, id=80, 2569.6pt x 1328.965pt>
+<Figures/Fibroblastid.jpg, id=79, 2569.6pt x 1328.965pt>
 File: Figures/Fibroblastid.jpg Graphic file (type jpg)
 <use Figures/Fibroblastid.jpg>
-Package pdftex.def Info: Figures/Fibroblastid.jpg  used on input line 180.
+Package pdftex.def Info: Figures/Fibroblastid.jpg  used on input line 187.
 (pdftex.def)             Requested size: 483.69687pt x 250.15369pt.
 
 
@@ -844,13 +848,13 @@ Package logreq Info: Writing requests to 'template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21968 strings out of 473190
- 383905 string characters out of 5715800
- 1250473 words of memory out of 5000000
- 44491 multiletter control sequences out of 15000+600000
- 643243 words of font info for 408 fonts, out of 8000000 for 9000
+ 21936 strings out of 473190
+ 383557 string characters out of 5715800
+ 1249195 words of memory out of 5000000
+ 44485 multiletter control sequences out of 15000+600000
+ 638301 words of font info for 392 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 81i,13n,95p,1005b,1717s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 81i,12n,95p,1005b,1717s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></us
 r/local/texlive/2025/texmf-dist/fonts/type1/public/fpl/fplrc8a.pfb></usr/local/
@@ -858,10 +862,10 @@ texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/te
 xlive/2025/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2
 025/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2025/tex
 mf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on template.pdf (4 pages, 1993012 bytes).
+Output written on template.pdf (4 pages, 1992807 bytes).
 PDF statistics:
- 149 PDF objects out of 1000 (max. 8388607)
- 123 compressed objects within 2 object streams
+ 148 PDF objects out of 1000 (max. 8388607)
+ 122 compressed objects within 2 object streams
  28 named destinations out of 1000 (max. 500000)
- 137835 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 123499 words of extra memory for PDF output out of 128383 (max. 10000000)
 

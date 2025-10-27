@@ -39,21 +39,28 @@
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
 
-\title{An Article Title That Spans Multiple\\ Lines to Show Line Wrapping} % Article title, use manual lines breaks (\\) to beautify the layout
+\title{Practical Implementation and Evaluation of Ethereum's Proof-of-Stake Bouncing Attack and Patch on MOBS } % Article title, use manual lines breaks (\\) to beautify the layout
 
 % Authors are listed in a comma-separated list with superscript numbers indicating affiliations
 % \thanks{} is used for any text that should be placed in a footnote on the first page, such as the corresponding author's email, journal acceptance dates, a copyright/license notice, keywords, etc
 \author{%
-	John Smith\textsuperscript{1,2}, Robert Smith\textsuperscript{3} and Jane Smith\textsuperscript{1}\thanks{Corresponding author: \href{mailto:jane@smith.com}{jane@smith.com}\\ \textbf{Received:} October 20, 2023, \textbf{Published:} December 14, 2023}
+	Ricardo Loureiro\textsuperscript{1}, António Ravara\textsuperscript{1} and Simão Melo de Sousa\textsuperscript{2}
 }
 
 % Affiliations are output in the \date{} command
-\date{\footnotesize\textsuperscript{\textbf{1}}School of Chemistry, The University of Michigan\\ \textsuperscript{\textbf{2}}Physics Department, The University of Wisconsin\\ \textsuperscript{\textbf{3}}Biological Sciences Department, The University of Minnesota}
+\date{\footnotesize\textsuperscript{\textbf{1}}Faculty of Science and Technology, NOVA\\ \textsuperscript{\textbf{2}} University of Algarve}
 
 % Full-width abstract
 \renewcommand{\maketitlehookd}{%
 	\begin{abstract}
-		\noindent Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor arcu luctus, imperdiet urna iaculis, mattis eros. Pellentesque iaculis odio vel nisl ullamcorper, nec faucibus ipsum molestie. Sed dictum nisl non aliquet porttitor. Etiam vulputate arcu dignissim, finibus sem et, viverra nisl. Aenean luctus congue massa, ut laoreet metus ornare in. Nunc fermentum nisi imperdiet lectus tincidunt vestibulum at ac elit. Nulla mattis nisl eu malesuada suscipit. Aliquam arcu turpis, ultrices sed luctus ac, vehicula id metus. Morbi eu feugiat velit, et tempus augue. Proin ac mattis tortor. Donec tincidunt, ante rhoncus luctus semper, arcu lorem lobortis justo, nec convallis ante quam quis lectus. Aenean tincidunt sodales massa, et hendrerit tellus mattis ac. Sed non pretium nibh. Donec cursus maximus luctus. Vivamus lobortis eros et massa porta porttitor.
+		\noindent With Ethereum going through \textit{The Merge} and moving from a Proof-of-Work to a Proof-of-Work consensus
+							it has oppened itself to a new range of attacks. One of this attacks was a bouncing attack on liveness that
+							prevented the blockchain from finalizing new blocks, the Ethereum community then responded with a patch to fix
+							this vulnerability. An article analyzing this vulnerability and subsquent patch has found that there is a new
+							vulnerability on the patched protocol that results in the protocol only having probablistic liveness. The article
+							only provides a theorethical analysis and pseudo-code which motivated us to implement Ethereum as described, the attack
+							and subsquent patch in MOBS. We therefore provide imperical evidence to complement the theoretical analysis supporting the
+							claims made on the article.
 	\end{abstract}
 }
 
@@ -69,22 +76,39 @@
 
 \section{Introduction}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor arcu luctus, imperdiet urna iaculis, mattis eros. Pellentesque iaculis odio vel nisl ullamcorper, nec faucibus ipsum molestie. Sed dictum nisl non aliquet porttitor. Etiam vulputate arcu dignissim, finibus sem et, viverra nisl. Aenean luctus congue massa, ut laoreet metus ornare in. Nunc fermentum nisi imperdiet lectus tincidunt vestibulum at ac elit. Nulla mattis nisl eu malesuada suscipit.
+Consensus and blockchain protocols are usually described with pseudocode and model checked with idealized languages that 
+not reflect the implementations. Since validating correctness is very costly, before planning an
+implementation, developers should test their ideas and prototypes. There is a lack of methodologies to develop,
+evaluate, tune and replicate these protocols, opening a need for extensible and modular tools for consensus analysis and
+experimental labs for rapid prototyping.
+With this in mind MOBS was developed with the aim to give the ability to test and validate these protocols under different conditions and settings by 
+changing the execution parameters, aiming to catch vulnerabilities or even logic errors before deploying changes to these protocols.
+Since verification of protocols is very costly, developers can use MOBS to get confidence in their implementations
+from experimentations first.
 
-Aliquam arcu turpis, ultrices sed luctus ac, vehicula id metus. Morbi eu feugiat velit, et tempus augue. Proin ac mattis tortor. Donec tincidunt, ante rhoncus luctus semper, arcu lorem lobortis justo, nec convallis ante quam quis lectus. Aenean tincidunt sodales massa, et hendrerit tellus mattis ac. Sed non pretium nibh. Donec cursus maximus luctus. Vivamus lobortis eros et massa porta porttitor. Donec laoreet nisl vel risus lacinia elementum non nec lacus. Nullam luctus, nulla volutpat ultricies ultrices, quam massa placerat augue, ut fringilla urna lectus nec nibh. Vestibulum efficitur condimentum orci a semper. Pellentesque ut metus pretium lacus maximus semper.
+Consensus protocols are inherently complex to design and implement correctly.
+In blockchain systems, where financial transactions and dynamic behavior are the primary features, protocol correctness is essential,
+as even minor errors can lead to substantial financial losses and system malfunctions. One illustration of this is the transition of
+Ethereum from a Proof of Work to a Proof of Stake consensus. This transition exposed the protocol to vulnerabilities that could be
+exploited by bouncing attacks on liveness.
+The chain is unable to be finalized as a result of this type of attack, as the primary selected chain in the fork
+choice rule is perpetually hopping between two alternative branches.
 
-Fusce varius orci ac magna dapibus porttitor. In tempor leo a neque bibendum sollicitudin. Nulla pretium fermentum nisi, eget sodales magna facilisis eu. Praesent aliquet nulla ut bibendum lacinia. Donec vel mauris vulputate, commodo ligula ut, egestas orci. Suspendisse commodo odio sed hendrerit lobortis. Donec finibus eros erat, vel ornare enim mattis et. Donec finibus dolor quis dolor tempus consequat. Mauris fringilla dui id libero egestas, ut mattis neque ornare. Ut condimentum urna pharetra ipsum consequat, eu interdum elit cursus. Vivamus scelerisque tortor et nunc ultricies, id tincidunt libero pharetra. Aliquam eu imperdiet leo. Morbi a massa volutpat velit condimentum convallis et facilisis dolor.
+Liveness in a blockchain protocol is defined as the ability to always finalize new blocks. These blocks in the
+Ethereum protocol are finalized through a process called Casper FFG (Friendly Finality Gadget), in combination with
+the LMD GHOST (Latest Message Driven Greediest Heaviest Observed SubTree) fork choice rule.
 
-\begin{equation}
-	\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
-	\label{eq:example}
-\end{equation}
+The Bouncing Attack is an attack that prevents the chain from being finalized by making the main chain
+selected in the fork choice rule continually bounce between two candidate chains. The attack leverages the fact that
+candidate chains should start from the justified checkpoint with the highest epoch, and Byzantine nodes exploit this by
+dividing honest validators opinions, justifying a new checkpoint after some honest validators already have cast their vote.
 
-Automatically referencing an equation number using its label: Equation \ref{eq:example}.
+In~\cite{ethereum_analysis} this attack and with the Ethereum protocol are specified and analyzed along with the patch
+implemented by the Ethereum community. In this article is also stated and formalized that the patch only provides probabilistic
+liveness but no implementation is given.
 
-In hac habitasse platea dictumst. Curabitur mattis elit sit amet justo luctus vestibulum. In hac habitasse platea dictumst. Pellentesque lobortis justo enim, a condimentum massa tempor eu. Ut quis nulla a quam pretium eleifend nec eu nisl. Nam cursus porttitor eros, sed luctus ligula convallis quis. Nam convallis, ligula in auctor euismod, ligula mauris fringilla tellus, et egestas mauris odio eget diam. Praesent sodales in ipsum eu dictum. Aenean vel enim ipsum. Fusce ut felis at eros sagittis bibendum mollis lobortis libero.
-
-Maecenas consectetur metus at tellus finibus condimentum. Proin arcu lectus, ultrices non tincidunt et, tincidunt ut quam. Integer luctus posuere est, non maximus ante dignissim quis. Nunc a cursus erat. Curabitur suscipit nibh in tincidunt sagittis. Nam malesuada vestibulum quam id gravida. Proin ut dapibus velit. Vestibulum eget quam quis ipsum semper convallis. Duis consectetur nibh ac diam dignissim, id condimentum enim dictum. Nam aliquet ligula eu magna pellentesque, nec sagittis leo lobortis. Aenean tincidunt dignissim egestas.
+Here we show and detail our implementation in MOBS along with the re-creation of the Bouncing Attack, the patch proposed by the Ethereum
+community and how this patch only provides probabilistic liveness.
 
 %------------------------------------------------
 

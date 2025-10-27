@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber template"] 1760830575.36416 "template.bcf" "template.bbl" "template" 1760830579.42163 0
+["biber template"] 1760834918.56717 "template.bcf" "template.bbl" "template" 1760834922.04683 0
   "sample.bib" 1760830558.42124 423 bb4d4040f48aec7c0bc550ef99e007d4 ""
-  "template.bcf" 1760830579.35832 108017 4e39166d60900511e8fc3b0d717cb661 "pdflatex"
+  "template.bcf" 1760834921.98323 108017 4e39166d60900511e8fc3b0d717cb661 "pdflatex"
   (generated)
   "template.bbl"
   "template.blg"
   (rewritten before read)
-["pdflatex"] 1760830578.33563 "template.tex" "template.pdf" "template" 1760830579.42201 0
+["pdflatex"] 1760834920.9352 "template.tex" "template.pdf" "template" 1760834922.0471 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -137,11 +137,11 @@
   "Figures/Fibroblastid.jpg" 1760830558.43556 1196031 4586114cceabf6743681870dd8aeb612 ""
   "Figures/Tolmukapea.jpg" 1760830558.43731 653480 1eec97ed292c65b5c5bd54bfe0606110 ""
   "LTJournalArticle.cls" 1760830558.42559 9784 e38e4f05326438c9cfb0a6c6bf9f0764 ""
-  "template.aux" 1760830579.35685 4031 e91753de1f1573ef333f613eeb660da1 "pdflatex"
-  "template.bbl" 1760830577.22705 3462 f29cd340e6e4c6d07e4d2894cd627da5 "biber template"
-  "template.out" 1760830579.35746 1565 59e2c02a582909cb38775fec7280f07c "pdflatex"
-  "template.run.xml" 1760830579.35904 2329 dd0b28ad5248dccc56c9d3651d0f9aad "pdflatex"
-  "template.tex" 1760830558.41426 19772 c7ae37a22ece227546d485553ec6f474 ""
+  "template.aux" 1760834921.98196 4031 e91753de1f1573ef333f613eeb660da1 "pdflatex"
+  "template.bbl" 1760834920.91073 3462 f29cd340e6e4c6d07e4d2894cd627da5 "biber template"
+  "template.out" 1760834921.98247 1565 59e2c02a582909cb38775fec7280f07c "pdflatex"
+  "template.run.xml" 1760834921.98405 2329 dd0b28ad5248dccc56c9d3651d0f9aad "pdflatex"
+  "template.tex" 1760834914.30375 19551 e6b2c74e18c64bdd2d224ae803904be4 ""
   (generated)
   "template.aux"
   "template.bcf"
