@@ -368,6 +368,14 @@ INPUT ./Figures/mobs_receive_justification_finalization.png
 INPUT ./Figures/mobs_receive_justification_finalization.png
 INPUT ./Figures/mobs_receive_justification_finalization.png
 INPUT ./Figures/mobs_receive_justification_finalization.png
+INPUT ./Figures/ethereum_correct_execution.png
+INPUT ./Figures/ethereum_correct_execution.png
+INPUT ./Figures/ethereum_correct_execution.png
+INPUT ./Figures/ethereum_correct_execution.png
+INPUT ./Figures/ethereum_incorrect_execution.png
+INPUT ./Figures/ethereum_incorrect_execution.png
+INPUT ./Figures/ethereum_incorrect_execution.png
+INPUT ./Figures/ethereum_incorrect_execution.png
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/palatino/pplr9t.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/palatino/pplr9t.tfm

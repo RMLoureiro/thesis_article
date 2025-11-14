@@ -252,19 +252,51 @@ presented in the article like shown in~\ref{fig:receive_justification_finalizati
 
 \section{Results}
 
-\begin{itemize}
-	\item Basic Scenario
-	\item Byzantine execution
-	\item Byzantine Exceution with patch
-	\item Exectuion showing the patch only provides probabilistic liveness
-\end{itemize}
+Our implementation allowed us to recreate the scenarios presented in~\cite{ethereum_analysis} and validate the claims made in the article.
+The first scenario we tested was a basic execution of the protocol without any Byzantine nodes to validate that the protocol
+was able to finalize new blocks as expected.
+To validate this execution we ran the simulation for a predefined amount of time and checked that new blocks were being finalized.
+To help with this validation we logged every time a node finalized a new block and at the end of the simulation we used a python script
+to parse the logs and check that a new block was finalized for each epoch.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=4.5in, angle =0]{ethereum_correct_execution}
+	\caption{Output from the log analyzer script for an Ethereum correct execution}
+	\label{fig:ethereum_correct_execution}
+\end{figure}
+
+In our second scenario we implemented Byzantine behavior for some nodes in order to recreate the bouncing attack as described in the article.
+This behavior would start at a predefined epoch and would make the Byzantine nodes split the honest validators opinions
+by justifying a new checkpoint after some honest validators already have cast their vote.
+We ran the simulation for the same amount of time as the previous scenario and checked that no new blocks were not being finalized.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=4.5in, angle =0]{ethereum_incorrect_execution}
+	\caption{Output from the log analyzer script for an Ethereum incorrect execution}
+	\label{fig:ethereum_incorrect_execution}
+\end{figure}
+
+After in our next scenario we implemented the patch proposed by the Ethereum community to mitigate the bouncing attack. This patch would make nodes only consider
+attestations up until a pre-determined slot when justifying a new checkpoint. This would give time for correct attestators to change their vote into the correct
+block. After implementing this patch we ran the simulation again for the same amount of time and checked that new blocks were being finalized again even after the byzantine nodes
+started their attack.
+
+In our final scenario we wanted to validate the claim made in the article that the patch only provides probabilistic liveness. To validate this we changed the behaviour of the
+byzantine nodes to simulate network lag. This would make the byzantine nodes justify a new checkpoint after the honest validators had already cast their vote
+but before the pre-determined slot defined in the patch. This would make some honest validators change their vote to another chain and prevent finalization.
+We ran the simulation for the same amount of time and checked that for some epochs no new blocks were being finalized.
 
 \section{Conclusion}
-\begin{itemize}
-	\item Relate implentation to the article (reforçar que é um trabalho empirico de confirmação das teses teoricas apresentadas no artigo, validação feita por simulação
-	que implicou uma implementação dos algoritmos de pseudo codigo com decisoes estrategicas para capturar o essencial e deixar de lado o acessório)
-	\item Future directions (implementação pode servir de guia para a implementação de outros protocolos de consensus semelhantes e de blockchains -> salientar também na introdução)
-\end{itemize}
+This work provided an implementation of the Ethereum Proof-of-Stake protocol as described in~\cite{ethereum_analysis} along with the
+bouncing attack and the patch proposed by the Ethereum community to mitigate this attack. Through our implementation
+we were able to empirically validate the claims made in the article regarding the vulnerability of the protocol to the bouncing attack
+and how the proposed patch only provides probabilistic liveness. Even though our implementation made some simplifications to the protocol
+like assuming static quorums and every attestation having a weight of 1, the core logic of the protocol was preserved allowing us to validate the claims made in the article.
+
+This implementation can be used as a guide for the implementation of other similar consensus protocols and blockchains. We present a way to use MOBS
+to validate and test these protocols before deploying them in real world scenarios, allowing developers to catch vulnerabilities and logic errors early on diverse
+scenarios.
 
 %----------------------------------------------------------------------------------------
 %	 REFERENCES
