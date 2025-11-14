@@ -28,6 +28,9 @@
 ]{LTJournalArticle}
 
 \addbibresource{sample.bib} % BibLaTeX bibliography file
+% Load float for placement specifier [H] which forces the float to be placed
+% exactly where it appears in the source.
+\usepackage{float}
 
 \runninghead{Shortened Running Article Title} % A shortened article title to appear in the running head, leave this command empty for no running head
 
@@ -44,11 +47,11 @@
 % Authors are listed in a comma-separated list with superscript numbers indicating affiliations
 % \thanks{} is used for any text that should be placed in a footnote on the first page, such as the corresponding author's email, journal acceptance dates, a copyright/license notice, keywords, etc
 \author{%
-	Ricardo Loureiro\textsuperscript{1}, António Ravara\textsuperscript{1} and Simão Melo de Sousa\textsuperscript{2}
+	Ricardo Loureiro\textsuperscript{1,3}, António Ravara\textsuperscript{1,3} and Simão Melo de Sousa\textsuperscript{2,3}
 }
 
 % Affiliations are output in the \date{} command
-\date{\footnotesize\textsuperscript{\textbf{1}}Faculty of Science and Technology, NOVA\\ \textsuperscript{\textbf{2}} University of Algarve}
+\date{\footnotesize\textsuperscript{\textbf{1}}FCT, NOVA\\ \textsuperscript{\textbf{2}} University of Algarve \\ \textsuperscript{\textbf{3}}NOVA-LINCS}
 
 % Full-width abstract
 \renewcommand{\maketitlehookd}{%
@@ -105,142 +108,163 @@ dividing honest validators opinions, justifying a new checkpoint after some hone
 
 In~\cite{ethereum_analysis} this attack and with the Ethereum protocol are specified and analyzed along with the patch
 implemented by the Ethereum community. In this article is also stated and formalized that the patch only provides probabilistic
-liveness but no implementation is given.
+liveness but no implementation is given. TODO Describe reason to do this implementation to support the article.
+
+This document serves as a complement and provides more detailed information about our implementation and how it relates to the sdescription given in the article.
 
 Here we show and detail our implementation in MOBS along with the re-creation of the Bouncing Attack, the patch proposed by the Ethereum
 community and how this patch only provides probabilistic liveness.
 
 %------------------------------------------------
 
-\section{Methodologies}
+\section{Implementation}
 
-\subsection{Sample Sites \& Processing}
-
-This line shows how to use a footnote to further explain or cite text\footnote{Example footnote text.}.
-
-This is a bullet point list:
-
+Our implementation was done in MOBS a simulator makes use of OCaml's \textit{modules} and \textit{functors} to
+provide modularity and extensibility. MOBS adopts a \textit{Discrete-Event Simulation Model}
+making the state of the system only change in discrete points in time when events occur.
+These events are stored in a queue ordered with two main values:
 \begin{itemize}
-	\item Arcu eros accumsan lorem, at posuere mi diam sit amet tortor
-	\item Fusce fermentum, mi sit amet euismod rutrum
-	\item Sem lorem molestie diam, iaculis aliquet sapien tortor non nisi
-	\item Pellentesque bibendum pretium aliquet
+  \item \textbf{Timestamp:} This value dictates the order in which the events are
+stored in the queue and is based on the simulator's internal clock. When getting
+a new event the simulator will fetch from the queue the one with the smallest timestamp
+and move its internal clock to match that event's timestamp.
+  \item \textbf{Target:} The entity that should process this event.
 \end{itemize}
+Events are fetched from the queue until no more events remain or a predefined
+stopping condition is reached.
 
-Mauris interdum porttitor fringilla. Proin tincidunt sodales leo at ornare. Donec tempus magna non mauris gravida luctus. Cras vitae arcu vitae mauris eleifend scelerisque. Nam sem sapien, vulputate nec felis eu, blandit convallis risus. Pellentesque sollicitudin venenatis tincidunt. In et ipsum libero. Nullam tempor ligula a massa convallis pellentesque.
+For our implementation in MOBS we followed the description provided in pseudocode provided in~\cite{ethereum_analysis}. We focused on the
+parts pertaining to the consensus mechanism and to allow a faithful replication of the results ignored some of the randomness mechanisms
+that were described like choosing the member of the Proposers and the Validators committee. We also assumed that each attestation has a weight of 1
+when the protocol was running for simplicity.
 
-This is a numbered list:
 
-\begin{enumerate}
-	\item Donec dolor arcu, rutrum id molestie in, viverra sed diam
-	\item Curabitur feugiat
-	\item Turpis sed auctor facilisis
-\end{enumerate}
+The first algorithm presented in the article~\ref{fig:article_algorithm1} represents the main execution loop. 
+In our implementation~\ref{fig:mobs_receive_main} we continuously every node sends
+a message to itself at the end of the main loop execution to execute the main code again. Also instead of extracting the logic of
+\textit{prepareBlock()} and \textit{prepareAttestation()} to their own methods we keep them explicit in the main code.
 
-\subsection{Species Identification}
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{article_algorithm1.png}
+	\caption{Article algorithm 1}
+	\label{fig:article_algorithm1}
+\end{figure}
 
-Proin lobortis efficitur dictum. Pellentesque vitae pharetra eros, quis dignissim magna. Sed tellus leo, semper non vestibulum vel, tincidunt eu mi. Aenean pretium ut velit sed facilisis. Ut placerat urna facilisis dolor suscipit vehicula. Ut ut auctor nunc. Nulla non massa eros. Proin rhoncus arcu odio, eu lobortis metus sollicitudin eu. Duis maximus ex dui, id bibendum diam dignissim id. Aliquam quis lorem lorem. Phasellus sagittis aliquet dolor, vulputate cursus dolor convallis vel. Suspendisse eu tellus feugiat, bibendum lectus quis, fermentum nunc. Nunc euismod condimentum magna nec bibendum. Curabitur elementum nibh eu sem cursus, eu aliquam leo rutrum. Sed bibendum augue sit amet pharetra ullamcorper. Aenean congue sit amet tortor vitae feugiat.
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{mobs_receive_main.png}
+	\caption{MOBS receive_main function}
+	\label{fig:mobs_receive_main}
+\end{figure}
 
-Mauris interdum porttitor fringilla. Proin tincidunt sodales leo at ornare. Donec tempus magna non mauris gravida luctus. Cras vitae arcu vitae mauris eleifend scelerisque. Nam sem sapien, vulputate nec felis eu, blandit convallis risus. Pellentesque sollicitudin venenatis tincidunt. In et ipsum libero. Nullam tempor ligula a massa convallis pellentesque.
+In our implementation of \textit{broadcastBlock()}~\ref{fig:article_algorithm2} we kept the same flow of the presented algorithm with the only
+branches of execution being for the byzantine execution.
 
-\subsection{Data Analysis}
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{article_algorithm2.png}
+	\caption{Article algorithm 2}
+	\label{fig:article_algorithm2}
+\end{figure}
 
-Vestibulum sodales orci a nisi interdum tristique. In dictum vehicula dui, eget bibendum purus elementum eu. Pellentesque lobortis mattis mauris, non feugiat dolor vulputate a. Cras porttitor dapibus lacus at pulvinar. Praesent eu nunc et libero porttitor malesuada tempus quis massa. Aenean cursus ipsum a velit ultricies sagittis. Sed non leo ullamcorper, suscipit massa ut, pulvinar erat. Aliquam erat volutpat. Nulla non lacus vitae mi placerat tincidunt et ac diam. Aliquam tincidunt augue sem, ut vestibulum est volutpat eget. Suspendisse potenti. Integer condimentum, risus nec maximus elementum, lacus purus porta arcu, at ultrices diam nisl eget urna. Curabitur sollicitudin diam quis sollicitudin varius. Ut porta erat ornare laoreet euismod. In tincidunt purus dui, nec egestas dui convallis non. In vestibulum ipsum in dictum scelerisque.
+For \textit{broadcastAttestation()}~\ref{fig:article_algorithm3} we ignored the Checkpoint vote logic since there was no description
+on how a node should vote for the checkpoint and how it should use their stake on the vote. We did the assumption in our
+execution that every node always voted with the same stake.
 
-Mauris interdum porttitor fringilla. Proin tincidunt sodales leo at ornare. Donec tempus magna non mauris gravida luctus. Cras vitae arcu vitae mauris eleifend scelerisque. Nam sem sapien, vulputate nec felis eu, blandit convallis risus. Pellentesque sollicitudin venenatis tincidunt. In et ipsum libero. Nullam tempor ligula a massa convallis pellentesque. Mauris interdum porttitor fringilla. Proin tincidunt sodales leo at ornare. Donec tempus magna non mauris gravida luctus. Cras vitae arcu vitae mauris eleifend scelerisque. Nam sem sapien, vulputate nec felis eu, blandit convallis risus. Pellentesque sollicitudin venenatis tincidunt. In et ipsum libero. Nullam tempor ligula a massa convallis pellentesque.
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{article_algorithm3.png}
+	\caption{Article algorithm 3}
+	\label{fig:article_algorithm3}
+\end{figure}
 
+For \textit{sync()}~\ref{fig:article_algorithm4} we did not explicitly implement this method. Since we determined the attestation and proposer
+quorums to be static. The logic to call the \textit{justificationFinalization} is done in the \textit{receive\_main} method
+between the \textit{prepareBlock()} and \textit{prepareAttestation()} methods.
+
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{article_algorithm4.png}
+	\caption{Article algorithm 4}
+	\label{fig:article_algorithm4}
+\end{figure}
+
+For \textit{syncBlock()}~\ref{fig:article_algorithm4} and \textit{syncAttestation()}~\ref{fig:article_algorithm6} we skipped over
+the \textit{isValid()} method since there was no description on the implementation of this method, and we assumed that the byzantine
+would not be interfering with these messages. 
+Our implementation of \textit{syncBlock()}~\ref{fig:mobs_receive_propose} just updates the node's tree with the new block. To simplify
+the process and avoid concurrency races we just update the whole tree with the received tree.
+For our implementation of \textit{syncAttestation()} we follow the same logic and save the information of the attestation in a
+hash table where each key is the epoch and the value is a list of attestation received. This will be used later for the
+justification and finalization logic.
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{article_algorithm5.png}
+	\caption{Article algorithm 5}
+	\label{fig:article_algorithm5}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{article_algorithm6.png}
+	\caption{Article algorithm 6}
+	\label{fig:article_algorithm6}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{mobs_receive_propose.png}
+	\caption{MOBS receive_propose}
+	\label{fig:mobs_receive_propose}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{mobs_receive_attestation.png}
+	\caption{MOBS receive_attestation}
+	\label{fig:mobs_receive_attestation}
+\end{figure}
+
+For \textit{getHeadBlock()}~\ref{fig:article_algorithm7} we implemented the logic for this under the helper methods to navigate
+and operate the n-ary tree that represents the blockchain. I would suggest consulting the repository and checking the \textit{deepest\_justified\_on\_path}
+method since it would not be feasible to show the code through images because of the other helper methods that \textit{deepest\_justified\_on\_path} makes
+use of.
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{article_algorithm7.png}
+	\caption{Article algorithm 7}
+	\label{fig:article_algorithm7}
+\end{figure}
+
+The \textit{getWeight()}~\ref{fig:article_algorithm8} was not implemented due to the fact that we assumed every node was voting with a stake of
+1.
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{article_algorithm8.png}
+	\caption{Article algorithm 8}
+	\label{fig:article_algorithm8}
+\end{figure}
+
+Algorithm 9~\ref{fig:article_algorithm9} defines the consensus logic for the protocol. To implement this we followed the same logic as
+presented in the article like shown in~\ref{fig:receive_justification_finalization}. When any node is finalized we propagate a
+\textit{FinalizedNode} message, this acts as a logging mechanism and as away to converge every node to the same tree.
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{article_algorithm9.png}
+	\caption{Article algorithm 9}
+	\label{fig:article_algorithm9}
+\end{figure}
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{mobs_receive_justification_finalization.png}
+	\caption{MOBS receive_justification_finalization}
+	\label{fig:mobs_receive_justification_finalization}
+\end{figure}
 %------------------------------------------------
 
 \section{Results}
 
-\begin{table} % Single column table
-	\caption{Example single column table.}
-	\centering
-	\begin{tabular}{l l r}
-		\toprule
-		\multicolumn{2}{c}{Location} \\
-		\cmidrule(r){1-2}
-		East Distance & West Distance & Count \\
-		\midrule
-		100km & 200km & 422 \\
-		350km & 1000km & 1833 \\
-		600km & 1200km & 890 \\
-		\bottomrule
-	\end{tabular}
-	\label{tab:distcounts}
-\end{table}
+\begin{itemize}
+	\item Basic Scenario
+	\item Byzantine execution
+	\item Byzantine Exceution with patch
+	\item Exectuion showing the patch only provides probabilistic liveness
+\end{itemize}
 
-Referencing a table using its label: Table \ref{tab:distcounts}.
-
-\begin{table*} % Full width table (notice the starred environment)
-	\caption{Example two column table with fixed-width columns.}
-	\centering % Horizontally center the table
-	\begin{tabular}{L{0.2\linewidth} L{0.2\linewidth} R{0.15\linewidth}} % Manually specify column alignments with L{}, R{} or C{} and widths as a fixed amount, usually as a proportion of \linewidth
-		\toprule
-		\multicolumn{2}{c}{Location} \\
-		\cmidrule(r){1-2}
-		East Distance & West Distance & Count \\
-		\midrule
-		100km & 200km & 422 \\
-		350km & 1000km & 1833 \\
-		600km & 1200km & 890 \\
-		\bottomrule
-	\end{tabular}
-\end{table*}
-
-Aenean feugiat pellentesque venenatis. Sed faucibus tristique tortor vel ultrices. Donec consequat tellus sapien. Nam bibendum urna mauris, eget sagittis justo gravida vel. Mauris nisi lacus, malesuada sit amet neque ut, venenatis tempor orci. Curabitur feugiat sagittis molestie. Duis euismod arcu vitae quam scelerisque facilisis. Praesent volutpat eleifend tortor, in malesuada dui egestas id. Donec finibus ac risus sed pellentesque. Donec malesuada non magna nec feugiat. Mauris eget nibh nec orci congue porttitor vitae eu erat. Sed commodo ipsum ipsum, in elementum neque gravida euismod. Cras mi lacus, pulvinar ut sapien ut, rutrum sagittis dui. Donec non est a metus varius finibus. Pellentesque rutrum pellentesque ligula, vitae accumsan nulla hendrerit ut.
-
-\begin{figure} % Single column figure
-	\includegraphics[width=\linewidth]{Tolmukapea.jpg}
-	\caption{Anther of thale cress (Arabidopsis thaliana), fluorescence micrograph. Source: Heiti Paves, \href{https://commons.wikimedia.org/wiki/File:Tolmukapea.jpg}{https://commons.wiki-\\media.org/wiki/File:Tolmukapea.jpg}.}
-	\label{fig:tcanther}
-\end{figure}
-
-Referencing a figure using its label: Figure \ref{fig:tcanther}.
-
-Aenean porttitor eros non pharetra congue. Proin in odio in dolor luctus auctor ac et mi. Etiam euismod mi sed lectus fringilla pretium. Phasellus tristique maximus lectus et sodales. Mauris feugiat ligula quis semper luctus. Nam sit amet felis sed leo fermentum aliquet. Mauris arcu dui, posuere id sem eget, cursus pulvinar mi. Donec nec lacus non lectus fermentum scelerisque et at nibh. Sed tristique, metus ac vestibulum porta, tortor lectus placerat lorem, et convallis tellus dolor eget ante. Pellentesque dui ligula, hendrerit a purus et, volutpat tempor lectus. Mauris nec purus nec mauris rhoncus pellentesque. Quisque quis diam sed est lacinia congue. Donec magna est, hendrerit sed metus vel, accumsan rutrum nibh.
-
-\begin{figure*} % Two column figure (notice the starred environment)
-	\includegraphics[width=\linewidth]{Fibroblastid.jpg}
-	\caption{Bovine pulmonary artery endothelial cells in culture. Blue: nuclei; red: mitochondria; green: microfilaments. Computer generated image from a 3D model based on a confocal laser scanning microscopy using fluorescent marker dyes. Source: Heiti Paves, \href{https://commons.wikimedia.org/wiki/File:Fibroblastid.jpg}{https://commons.wikimedia.org/wiki/File:Fibroblastid.jpg}.}
-	\label{fig:bpartery}
-\end{figure*}
-
-Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam cursus lectus purus, tempus iaculis quam dictum tristique. Nam interdum sapien nec tempor mattis. Quisque id sapien nisi. Mauris vehicula ornare eros vel efficitur. Nulla consectetur, turpis quis fringilla tincidunt, mi neque iaculis lectus, vel commodo elit odio non ex. Duis facilisis, purus ac viverra iaculis, turpis lectus ultrices ante, ac vestibulum ligula magna in libero. Etiam tristique maximus lacinia. Vestibulum hendrerit, lacus malesuada laoreet blandit, sapien velit sollicitudin nunc, eu porttitor urna ligula at lorem. Aliquam faucibus eros in fermentum venenatis. Fusce consectetur congue pellentesque. Suspendisse at nisi sit amet est porttitor cursus. Cras placerat faucibus nunc, a laoreet justo dignissim sit amet.
-
-\subsection{International Support}
-
-\noindent àáâäãåèéêëìíîïòóôöõøùúûüÿýñçčšž
-
-\noindent ÀÁÂÄÃÅÈÉÊËÌÍÎÏÒÓÔÖÕØÙÚÛÜŸÝÑ
-
-\noindent ßÇŒÆČŠŽ
-
-\subsection{Links}
-
-This is a clickable URL link: \href{https://www.latextemplates.com}{LaTeX Templates}. This is a clickable email link: \href{mailto:vel@latextemplates.com}{vel@latextemplates.com}. This is a clickable monospaced URL link: \url{https://www.LaTeXTemplates.com}.
-
-%------------------------------------------------
-
-\section{Discussion}
-
-This statement requires citation \autocite{Smith:2023qr}. This statement requires multiple citations \autocite{Smith:2023qr, Smith:2024jd}. This statement contains an in-text citation, for directly referring to a citation like so: \textcite{Smith:2024jd}.
-
-\subsection{Subsection One}
-
-Suspendisse potenti. Vivamus suscipit dapibus metus. Proin auctor iaculis ex, id fermentum lectus dapibus tristique. Nullam maximus eros eget leo pretium dapibus. Nunc in auctor erat, id interdum risus. Suspendisse aliquet vehicula accumsan. In vestibulum efficitur dictum. Sed ultrices, libero nec fringilla feugiat, elit massa auctor ligula, vehicula tempor ligula felis in lectus. Suspendisse sem dui, pharetra ut sodales eu, suscipit sit amet felis. Donec pretium viverra ante, ac pulvinar eros. Suspendisse gravida consectetur urna. Pellentesque vitae leo porta, imperdiet eros eget, posuere sem. Praesent eget leo efficitur odio bibendum condimentum sit amet vel ex. Nunc maximus quam orci, quis pulvinar nibh eleifend ac. Quisque consequat lacus magna, eu posuere tellus iaculis ac. Sed vitae tortor tincidunt ante sagittis iaculis.
-
-\subsection{Subsection Two}
-
-Nullam mollis tellus lorem, sed congue ipsum euismod a. Donec pulvinar neque sed ligula ornare sodales. Nulla sagittis vel lectus nec laoreet. Nulla volutpat malesuada turpis at ultricies. Ut luctus velit odio, sagittis volutpat erat aliquet vel. Donec ac neque eget neque volutpat mollis. Vestibulum viverra ligula et sapien bibendum, vel vulputate ex euismod. Curabitur nec velit velit. Aliquam vulputate lorem elit, id tempus nisl finibus sit amet. Curabitur ex turpis, consequat at lectus id, imperdiet molestie augue. Curabitur eu eros molestie purus commodo hendrerit. Quisque auctor ipsum nec mauris malesuada, non fringilla nibh viverra. Quisque gravida, metus quis semper pulvinar, dolor nisl suscipit leo, vestibulum volutpat ante justo ultrices diam. Sed id facilisis turpis, et aliquet eros.
-
-\subsubsection{Subsubsection Example}
-
-Duis venenatis eget lectus a aliquet. Integer vulputate ante suscipit felis feugiat rutrum. Aliquam eget dolor eu augue elementum ornare. Nulla fringilla interdum volutpat. Sed tincidunt, neque quis imperdiet hendrerit, turpis sapien ornare justo, ac blandit felis sem quis diam. Proin luctus urna sit amet felis tincidunt, sed congue nunc pellentesque. Ut faucibus a magna faucibus finibus. Etiam id mi euismod, auctor nisi eget, pretium metus. Proin tincidunt interdum mi non interdum. Donec semper luctus dolor at elementum. Aenean eu congue tortor, sed hendrerit magna. Quisque a dolor ante. Mauris semper id urna id gravida. Vestibulum mi tortor, finibus eu felis in, vehicula aliquam mi.
-
-Aliquam arcu turpis, ultrices sed luctus ac, vehicula id metus. Morbi eu feugiat velit, et tempus augue. Proin ac mattis tortor. Donec tincidunt, ante rhoncus luctus semper, arcu lorem lobortis justo, nec convallis ante quam quis lectus. Aenean tincidunt sodales massa, et hendrerit tellus mattis ac. Sed non pretium nibh. 
-
-Donec cursus maximus luctus. Vivamus lobortis eros et massa porta porttitor. Nam vitae suscipit mi. Pellentesque ex tellus, iaculis vel libero at, cursus pretium sapien. Curabitur accumsan velit sit amet nulla lobortis, ut pretium ex aliquam. Proin eget volutpat orci. Morbi eu aliquet turpis. Vivamus molestie urna quis tempor tristique. Proin hendrerit sem nec tempor sollicitudin.
+\section{Conclusion}
+\begin{itemize}
+	\item Relate implentation to the article (reforçar que é um trabalho empirico de confirmação das teses teoricas apresentadas no artigo, validação feita por simulação
+	que implicou uma implementação dos algoritmos de pseudo codigo com decisoes estrategicas para capturar o essencial e deixar de lado o acessório)
+	\item Future directions (implementação pode servir de guia para a implementação de outros protocolos de consensus semelhantes e de blockchains -> salientar também na introdução)
+\end{itemize}
 
 %----------------------------------------------------------------------------------------
 %	 REFERENCES

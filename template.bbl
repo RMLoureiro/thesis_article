@@ -19,76 +19,42 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
-    \entry{Smith:2023qr}{book}{}{}
-      \name{author}{2}{}{%
-        {{hash=6126f91a89611279e86182106bf09d1a}{%
-           family={Smith},
-           familyi={S\bibinitperiod},
-           given={J.\bibnamedelimi M.},
-           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-        {{hash=be76b5bf7fa911e76b7029cf81189081}{%
-           family={Jones},
-           familyi={J\bibinitperiod},
-           given={A.\bibnamedelimi B.},
-           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+    \entry{ethereum_analysis}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=668a54036ed9215e9c1d44cf31211dcd}{%
+           family={Pavloff},
+           familyi={P\bibinitperiod},
+           given={Ulysse},
+           giveni={U\bibinitperiod}}}%
+        {{hash=99c2f8229e3958893de0e6d13e85f2b7}{%
+           family={Amoussou-Guenou},
+           familyi={A\bibinithyphendelim G\bibinitperiod},
+           given={Yackolley},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=3676da59cb3adc517f9034c565906535}{%
+           family={Tucci-Piergiovanni},
+           familyi={T\bibinithyphendelim P\bibinitperiod},
+           given={Sara},
+           giveni={S\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Publisher}%
-      }
-      \strng{namehash}{6cda7f34da4828c776e9f66658f50983}
-      \strng{fullhash}{6cda7f34da4828c776e9f66658f50983}
-      \strng{fullhashraw}{6cda7f34da4828c776e9f66658f50983}
-      \strng{bibnamehash}{6cda7f34da4828c776e9f66658f50983}
-      \strng{authorbibnamehash}{6cda7f34da4828c776e9f66658f50983}
-      \strng{authornamehash}{6cda7f34da4828c776e9f66658f50983}
-      \strng{authorfullhash}{6cda7f34da4828c776e9f66658f50983}
-      \strng{authorfullhashraw}{6cda7f34da4828c776e9f66658f50983}
+      \strng{namehash}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
+      \strng{fullhash}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
+      \strng{fullhashraw}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
+      \strng{bibnamehash}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
+      \strng{authorbibnamehash}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
+      \strng{authornamehash}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
+      \strng{authorfullhash}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
+      \strng{authorfullhashraw}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{edition}{7th}
-      \field{title}{{B}ook {T}itle}
-      \field{year}{2023}
-    \endentry
-    \entry{Smith:2024jd}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=be76b5bf7fa911e76b7029cf81189081}{%
-           family={Jones},
-           familyi={J\bibinitperiod},
-           given={A.\bibnamedelimi B.},
-           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
-        {{hash=6126f91a89611279e86182106bf09d1a}{%
-           family={Smith},
-           familyi={S\bibinitperiod},
-           given={J.\bibnamedelimi M.},
-           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Publisher}%
-      }
-      \strng{namehash}{348932ff0b7038ddd516ab40e4a45308}
-      \strng{fullhash}{348932ff0b7038ddd516ab40e4a45308}
-      \strng{fullhashraw}{348932ff0b7038ddd516ab40e4a45308}
-      \strng{bibnamehash}{348932ff0b7038ddd516ab40e4a45308}
-      \strng{authorbibnamehash}{348932ff0b7038ddd516ab40e4a45308}
-      \strng{authornamehash}{348932ff0b7038ddd516ab40e4a45308}
-      \strng{authorfullhash}{348932ff0b7038ddd516ab40e4a45308}
-      \strng{authorfullhashraw}{348932ff0b7038ddd516ab40e4a45308}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal title}
-      \field{month}{3}
-      \field{number}{52}
-      \field{title}{{A}rticle {T}itle}
-      \field{volume}{13}
-      \field{year}{2024}
-      \field{pages}{123\bibrangedash 456}
-      \range{pages}{334}
-      \verb{doi}
-      \verb 10.1038/s41586-021-03616-x
+      \field{eprintclass}{cs.CR}
+      \field{eprinttype}{arXiv}
+      \field{title}{Ethereum Proof-of-Stake under Scrutiny}
+      \field{year}{2022}
+      \verb{eprint}
+      \verb 2210.16070
       \endverb
     \endentry
   \enddatalist

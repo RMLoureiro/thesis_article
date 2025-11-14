@@ -30,7 +30,10 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}} % Pass through any extra options specified to the base class
 \ProcessOptions\relax % Process class options
 
-\LoadClass[twocolumn]{article} % Load the base class
+% Load the base class. Switched to onecolumn so the main text prints in a
+% single column by default. If you need two-column output again, change
+% this to `twocolumn` or pass the option through the template.
+\LoadClass[onecolumn]{article} % Load the base class
 
 %----------------------------------------------------------------------------------------
 %	REQUIRED PACKAGES AND MISC CONFIGURATIONS
