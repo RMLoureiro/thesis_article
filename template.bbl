@@ -19,6 +19,99 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
+    \entry{casper_ffg}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=850981945102d0f671b6762173c8988a}{%
+           family={Buterin},
+           familyi={B\bibinitperiod},
+           given={Vitalik},
+           giveni={V\bibinitperiod}}}%
+        {{hash=cb95d04d5d15c63d41dc958ed2bf62f2}{%
+           family={Griffith},
+           familyi={G\bibinitperiod},
+           given={Virgil},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{a94845682096f45e9f9ecfac0bd7e340}
+      \strng{fullhash}{a94845682096f45e9f9ecfac0bd7e340}
+      \strng{fullhashraw}{a94845682096f45e9f9ecfac0bd7e340}
+      \strng{bibnamehash}{a94845682096f45e9f9ecfac0bd7e340}
+      \strng{authorbibnamehash}{a94845682096f45e9f9ecfac0bd7e340}
+      \strng{authornamehash}{a94845682096f45e9f9ecfac0bd7e340}
+      \strng{authorfullhash}{a94845682096f45e9f9ecfac0bd7e340}
+      \strng{authorfullhashraw}{a94845682096f45e9f9ecfac0bd7e340}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1710.09437}
+      \field{title}{Casper the friendly finality gadget}
+      \field{year}{2017}
+    \endentry
+    \entry{ghost_casper}{article}{}{}
+      \name{author}{9}{}{%
+        {{hash=850981945102d0f671b6762173c8988a}{%
+           family={Buterin},
+           familyi={B\bibinitperiod},
+           given={Vitalik},
+           giveni={V\bibinitperiod}}}%
+        {{hash=7476c0cc3d0245c8a4d87b4d8a3b9204}{%
+           family={Hernandez},
+           familyi={H\bibinitperiod},
+           given={Diego},
+           giveni={D\bibinitperiod}}}%
+        {{hash=982bf2c05fdf5eba82d35c4ece6681eb}{%
+           family={Kamphefner},
+           familyi={K\bibinitperiod},
+           given={Thor},
+           giveni={T\bibinitperiod}}}%
+        {{hash=db02fd6d1bddd4368e8e2f30adcc73b9}{%
+           family={Pham},
+           familyi={P\bibinitperiod},
+           given={Khiem},
+           giveni={K\bibinitperiod}}}%
+        {{hash=50df7f77e6f53ecb90d19d226a6dc021}{%
+           family={Qiao},
+           familyi={Q\bibinitperiod},
+           given={Zhi},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=6c94ce33faf1068c277b7f4962a777cf}{%
+           family={Ryan},
+           familyi={R\bibinitperiod},
+           given={Danny},
+           giveni={D\bibinitperiod}}}%
+        {{hash=ed7906e05529622865c4f4bd50b4f0ca}{%
+           family={Sin},
+           familyi={S\bibinitperiod},
+           given={Juhyeok},
+           giveni={J\bibinitperiod}}}%
+        {{hash=330e18fb499a5fa7fa598125962993f7}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Ying},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=1df7e81b6692bf5e8b5e2291f7d22829}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Yan\bibnamedelima X},
+           giveni={Y\bibinitperiod\bibinitdelim X\bibinitperiod}}}%
+      }
+      \strng{namehash}{fa265b80691610b5092f93ae4a80f9b7}
+      \strng{fullhash}{6741008a053dfb34501b88b880186bd8}
+      \strng{fullhashraw}{6741008a053dfb34501b88b880186bd8}
+      \strng{bibnamehash}{fa265b80691610b5092f93ae4a80f9b7}
+      \strng{authorbibnamehash}{fa265b80691610b5092f93ae4a80f9b7}
+      \strng{authornamehash}{fa265b80691610b5092f93ae4a80f9b7}
+      \strng{authorfullhash}{6741008a053dfb34501b88b880186bd8}
+      \strng{authorfullhashraw}{6741008a053dfb34501b88b880186bd8}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2003.03052}
+      \field{title}{Combining ghost and casper}
+      \field{year}{2020}
+    \endentry
     \entry{ethereum_analysis}{misc}{}{}
       \name{author}{3}{}{%
         {{hash=668a54036ed9215e9c1d44cf31211dcd}{%
@@ -45,8 +138,8 @@
       \strng{authornamehash}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
       \strng{authorfullhash}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
       \strng{authorfullhashraw}{f2ae3e678f9d01bab9e7bdd3b339d5c0}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{eprintclass}{cs.CR}

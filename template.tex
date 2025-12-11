@@ -1,46 +1,22 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Journal Article
-% LaTeX Template
-% Version 2.0 (February 7, 2023)
-%
-% This template originates from:
-% https://www.LaTeXTemplates.com
-%
-% Author:
-% Vel (vel@latextemplates.com)
-%
-% License:
-% CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
-%
-% NOTE: The bibliography needs to be compiled using the biber engine.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
-
-\documentclass[
-	a4paper, % Paper size, use either a4paper or letterpaper
-	10pt, % Default font size, can also use 11pt or 12pt, although this is not recommended
-	unnumberedsections, % Comment to enable section numbering
-	twoside, % Two side traditional mode where headers and footers change between odd and even pages, comment this option to make them fixed
-]{LTJournalArticle}
-
-\addbibresource{sample.bib} % BibLaTeX bibliography file
-% Load float for placement specifier [H] which forces the float to be placed
-% exactly where it appears in the source.
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{float}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
 
-\runninghead{Shortened Running Article Title} % A shortened article title to appear in the running head, leave this command empty for no running head
-
-\footertext{\textit{Journal of Biological Sampling} (2024) 12:533-684} % Text to appear in the footer, leave this command empty for no footer text
-
-\setcounter{page}{1} % The page number of the first page, set this to a higher number if the article is to be part of an issue or larger work
+% Load biblatex (document uses the standard article class here)
+\usepackage[backend=biber,citestyle=numeric,bibstyle=numeric,sorting=none]{biblatex}
+% Register bibliography resource
+\addbibresource{sample.bib}
 
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
+\begin{document}
 
 \title{Practical Implementation and Evaluation of Ethereum's Proof-of-Stake Bouncing Attack and Patch on MOBS } % Article title, use manual lines breaks (\\) to beautify the layout
 
@@ -51,27 +27,24 @@
 }
 
 % Affiliations are output in the \date{} command
-\date{\footnotesize\textsuperscript{\textbf{1}}FCT, NOVA\\ \textsuperscript{\textbf{2}} University of Algarve \\ \textsuperscript{\textbf{3}}NOVA-LINCS}
+\date{\footnotesize\textsuperscript{\textbf{1}}DI, FCT, NOVA\\ \textsuperscript{\textbf{2}} DEEI, FCT, University of Algarve \\ \textsuperscript{\textbf{3}}NOVA-LINCS}
+
+\maketitle % Output the title section
 
 % Full-width abstract
-\renewcommand{\maketitlehookd}{%
-	\begin{abstract}
-		\noindent With Ethereum going through \textit{The Merge} and moving from a Proof-of-Work to a Proof-of-Work consensus
-							it has oppened itself to a new range of attacks. One of this attacks was a bouncing attack on liveness that
-							prevented the blockchain from finalizing new blocks, the Ethereum community then responded with a patch to fix
-							this vulnerability. An article analyzing this vulnerability and subsquent patch has found that there is a new
-							vulnerability on the patched protocol that results in the protocol only having probablistic liveness. The article
-							only provides a theorethical analysis and pseudo-code which motivated us to implement Ethereum as described, the attack
-							and subsquent patch in MOBS. We therefore provide imperical evidence to complement the theoretical analysis supporting the
-							claims made on the article.
-	\end{abstract}
-}
+\begin{abstract}
+	\noindent With Ethereum going through \textit{The Merge} and moving from a Proof-of-Work to a Proof-of-Work consensus
+						it has oppened itself to a new range of attacks. One of this attacks was a bouncing attack on liveness that
+						prevented the blockchain from finalizing new blocks, the Ethereum community then responded with a patch to fix
+						this vulnerability. An article analyzing this vulnerability and subsquent patch has found that there is a new
+						vulnerability on the patched protocol that results in the protocol only having probablistic liveness. The article
+						only provides a theorethical analysis and pseudo-code which motivated us to implement Ethereum as described, the attack
+						and subsquent patch in MOBS. We therefore provide imperical evidence to complement the theoretical analysis supporting the
+						claims made on the article.
+\end{abstract}
 
 %----------------------------------------------------------------------------------------
 
-\begin{document}
-
-\maketitle % Output the title section
 
 %----------------------------------------------------------------------------------------
 %	ARTICLE CONTENTS
@@ -98,8 +71,8 @@ The chain is unable to be finalized as a result of this type of attack, as the p
 choice rule is perpetually hopping between two alternative branches.
 
 Liveness in a blockchain protocol is defined as the ability to always finalize new blocks. These blocks in the
-Ethereum protocol are finalized through a process called Casper FFG (Friendly Finality Gadget), in combination with
-the LMD GHOST (Latest Message Driven Greediest Heaviest Observed SubTree) fork choice rule.
+Ethereum protocol are finalized through a process called Casper FFG (Friendly Finality Gadget)~\cite{casper_ffg}, in combination with
+the LMD GHOST (Latest Message Driven Greediest Heaviest Observed SubTree) fork choice rule~\cite{ghost_casper}.
 
 The Bouncing Attack is an attack that prevents the chain from being finalized by making the main chain
 selected in the fork choice rule continually bounce between two candidate chains. The attack leverages the fact that
@@ -108,7 +81,11 @@ dividing honest validators opinions, justifying a new checkpoint after some hone
 
 In~\cite{ethereum_analysis} this attack and with the Ethereum protocol are specified and analyzed along with the patch
 implemented by the Ethereum community. In this article is also stated and formalized that the patch only provides probabilistic
-liveness but no implementation is given. TODO Describe reason to do this implementation to support the article.
+liveness but no implementation is given. Providing an implementation in MOBS complements the article by producing an
+executable, reproducible reference: it validates the paper's assumptions, uncovers implementation-level corner cases, and
+allows empirical measurement of attack success rates and the patch's effectiveness under realistic network and Byzantine
+conditions. This practical reproduction strengthens the article's claims by enabling repeatable experiments, quantitative
+evidence, and clearer guidance for protocol implementers.
 
 This document serves as a complement and provides more detailed information about our implementation and how it relates to the sdescription given in the article.
 
@@ -138,21 +115,20 @@ parts pertaining to the consensus mechanism and to allow a faithful replication 
 that were described like choosing the member of the Proposers and the Validators committee. We also assumed that each attestation has a weight of 1
 when the protocol was running for simplicity.
 
-
 The first algorithm presented in the article~\ref{fig:article_algorithm1} represents the main execution loop. 
 In our implementation~\ref{fig:mobs_receive_main} we continuously every node sends
 a message to itself at the end of the main loop execution to execute the main code again. Also instead of extracting the logic of
-\textit{prepareBlock()} and \textit{prepareAttestation()} to their own methods we keep them explicit in the main code.
+\textit{prepareBlock()} and \textbf{\texttt{prepareAttestation()}} to their own methods we keep them explicit in the main code.
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{article_algorithm1.png}
+	\includegraphics[width=\linewidth]{Figures/article_algorithm1.png}
 	\caption{Article algorithm 1}
 	\label{fig:article_algorithm1}
 \end{figure}
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{mobs_receive_main.png}
-	\caption{MOBS receive_main function}
+	\includegraphics[width=\linewidth]{Figures/mobs_receive_main.png}
+	\caption{MOBS \texttt{receive\_main} function}
 	\label{fig:mobs_receive_main}
 \end{figure}
 
@@ -160,7 +136,7 @@ In our implementation of \textit{broadcastBlock()}~\ref{fig:article_algorithm2} 
 branches of execution being for the byzantine execution.
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{article_algorithm2.png}
+	\includegraphics[width=\linewidth]{Figures/article_algorithm2.png}
 	\caption{Article algorithm 2}
 	\label{fig:article_algorithm2}
 \end{figure}
@@ -170,7 +146,7 @@ on how a node should vote for the checkpoint and how it should use their stake o
 execution that every node always voted with the same stake.
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{article_algorithm3.png}
+	\includegraphics[width=\linewidth]{Figures/article_algorithm3.png}
 	\caption{Article algorithm 3}
 	\label{fig:article_algorithm3}
 \end{figure}
@@ -180,7 +156,7 @@ quorums to be static. The logic to call the \textit{justificationFinalization} i
 between the \textit{prepareBlock()} and \textit{prepareAttestation()} methods.
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{article_algorithm4.png}
+	\includegraphics[width=\linewidth]{Figures/article_algorithm4.png}
 	\caption{Article algorithm 4}
 	\label{fig:article_algorithm4}
 \end{figure}
@@ -194,26 +170,26 @@ For our implementation of \textit{syncAttestation()} we follow the same logic an
 hash table where each key is the epoch and the value is a list of attestation received. This will be used later for the
 justification and finalization logic.
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{article_algorithm5.png}
+	\includegraphics[width=\linewidth]{Figures/article_algorithm5.png}
 	\caption{Article algorithm 5}
 	\label{fig:article_algorithm5}
 \end{figure}
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{article_algorithm6.png}
+	\includegraphics[width=\linewidth]{Figures/article_algorithm6.png}
 	\caption{Article algorithm 6}
 	\label{fig:article_algorithm6}
 \end{figure}
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{mobs_receive_propose.png}
-	\caption{MOBS receive_propose}
+	\includegraphics[width=\linewidth]{Figures/mobs_receive_propose.png}
+	\caption{MOBS \texttt{receive\_propose}}
 	\label{fig:mobs_receive_propose}
 \end{figure}
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{mobs_receive_attestation.png}
-	\caption{MOBS receive_attestation}
+	\includegraphics[width=\linewidth]{Figures/mobs_receive_attestation.png}
+	\caption{MOBS \texttt{receive\_attestation}}
 	\label{fig:mobs_receive_attestation}
 \end{figure}
 
@@ -222,7 +198,7 @@ and operate the n-ary tree that represents the blockchain. I would suggest consu
 method since it would not be feasible to show the code through images because of the other helper methods that \textit{deepest\_justified\_on\_path} makes
 use of.
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{article_algorithm7.png}
+	\includegraphics[width=\linewidth]{Figures/article_algorithm7.png}
 	\caption{Article algorithm 7}
 	\label{fig:article_algorithm7}
 \end{figure}
@@ -230,22 +206,22 @@ use of.
 The \textit{getWeight()}~\ref{fig:article_algorithm8} was not implemented due to the fact that we assumed every node was voting with a stake of
 1.
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{article_algorithm8.png}
+	\includegraphics[width=\linewidth]{Figures/article_algorithm8.png}
 	\caption{Article algorithm 8}
 	\label{fig:article_algorithm8}
 \end{figure}
 
 Algorithm 9~\ref{fig:article_algorithm9} defines the consensus logic for the protocol. To implement this we followed the same logic as
-presented in the article like shown in~\ref{fig:receive_justification_finalization}. When any node is finalized we propagate a
+presented in the article like shown in~\ref{fig:mobs_receive_justification_finalization}. When any node is finalized we propagate a
 \textit{FinalizedNode} message, this acts as a logging mechanism and as away to converge every node to the same tree.
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{article_algorithm9.png}
+	\includegraphics[width=\linewidth]{Figures/article_algorithm9.png}
 	\caption{Article algorithm 9}
 	\label{fig:article_algorithm9}
 \end{figure}
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{mobs_receive_justification_finalization.png}
-	\caption{MOBS receive_justification_finalization}
+	\includegraphics[width=\linewidth]{Figures/mobs_receive_justification_finalization.png}
+	\caption{MOBS \texttt{receive\_justification\_finalization}}
 	\label{fig:mobs_receive_justification_finalization}
 \end{figure}
 %------------------------------------------------
@@ -258,9 +234,9 @@ was able to finalize new blocks as expected.
 To validate this execution we ran the simulation for a predefined amount of time and checked that new blocks were being finalized.
 To help with this validation we logged every time a node finalized a new block and at the end of the simulation we used a python script
 to parse the logs and check that a new block was finalized for each epoch.
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=4.5in, angle =0]{ethereum_correct_execution}
+	\includegraphics[width=4.5in, angle =0]{Figures/ethereum_correct_execution.png}
 	\caption{Output from the log analyzer script for an Ethereum correct execution}
 	\label{fig:ethereum_correct_execution}
 \end{figure}
@@ -270,9 +246,9 @@ This behavior would start at a predefined epoch and would make the Byzantine nod
 by justifying a new checkpoint after some honest validators already have cast their vote.
 We ran the simulation for the same amount of time as the previous scenario and checked that no new blocks were not being finalized.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=4.5in, angle =0]{ethereum_incorrect_execution}
+	\includegraphics[width=4.5in, angle =0]{Figures/ethereum_incorrect_execution.png}
 	\caption{Output from the log analyzer script for an Ethereum incorrect execution}
 	\label{fig:ethereum_incorrect_execution}
 \end{figure}
@@ -302,7 +278,7 @@ scenarios.
 %	 REFERENCES
 %----------------------------------------------------------------------------------------
 
-\printbibliography % Output the bibliography
+\printbibliography
 
 %----------------------------------------------------------------------------------------
 
