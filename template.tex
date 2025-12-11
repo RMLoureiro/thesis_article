@@ -43,12 +43,12 @@
 						claims made on the article.
 \end{abstract}
 
-%----------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-%----------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------------------------------------------------------------------------
 %	ARTICLE CONTENTS
-%----------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------------------------------------------------------------------------
 
 \section{Introduction}
 
@@ -87,12 +87,12 @@ allows empirical measurement of attack success rates and the patch's effectivene
 conditions. This practical reproduction strengthens the article's claims by enabling repeatable experiments, quantitative
 evidence, and clearer guidance for protocol implementers.
 
-This document serves as a complement and provides more detailed information about our implementation and how it relates to the sdescription given in the article.
+This document serves as a complement and provides more detailed information about our implementation and how it relates to the description given in the article.
 
 Here we show and detail our implementation in MOBS along with the re-creation of the Bouncing Attack, the patch proposed by the Ethereum
 community and how this patch only provides probabilistic liveness.
 
-%------------------------------------------------
+%----------------------------------------------------------------------------------------------------------------------------------------
 
 \section{Implementation}
 
@@ -119,6 +119,18 @@ The first algorithm presented in the article~\ref{fig:article_algorithm1} repres
 In our implementation~\ref{fig:mobs_receive_main} we continuously every node sends
 a message to itself at the end of the main loop execution to execute the main code again. Also instead of extracting the logic of
 \textit{prepareBlock()} and \textbf{\texttt{prepareAttestation()}} to their own methods we keep them explicit in the main code.
+In our implementation we have a first if statement that has the logic for the proposers and the extra logic branch is done
+for the byzantine proposers. The proposers first find the deepest block on the chain and create a new
+block extending from it. After this the proposer broadcasts the new block to the network. After that if we are doing a byzantine execution
+the byzantine proposer will create a new block at a later epoch and broadcast it to the network at that time.
+this simulates network delay, intentionally or not, for the byzantine proposers, this behavior is only executed from epoch 100 onwards.
+
+The if that comes before the attestators code is used to execute the justification and finalization logic if we are the
+last slot of the epoch.
+
+After this comes the attestators code that is executed at the 11th slot onwards, this gives enough time for new blocks to be proposed.
+
+The exploit comes from all attestations being done before the byzantine node proposes it's block.
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{Figures/article_algorithm1.png}
@@ -169,6 +181,10 @@ the process and avoid concurrency races we just update the whole tree with the r
 For our implementation of \textit{syncAttestation()} we follow the same logic and save the information of the attestation in a
 hash table where each key is the epoch and the value is a list of attestation received. This will be used later for the
 justification and finalization logic.
+
+The logic for the fact adds a new condition that checks if a proposal is received after a cut-off period, defined at the 24th slot.
+If the proposal is received after this slot it is ignored. This is the patch proposed by the Ethereum community to mitigate the bouncing attack.
+
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{Figures/article_algorithm5.png}
 	\caption{Article algorithm 5}
@@ -224,7 +240,8 @@ presented in the article like shown in~\ref{fig:mobs_receive_justification_final
 	\caption{MOBS \texttt{receive\_justification\_finalization}}
 	\label{fig:mobs_receive_justification_finalization}
 \end{figure}
-%------------------------------------------------
+
+%----------------------------------------------------------------------------------------------------------------------------------
 
 \section{Results}
 

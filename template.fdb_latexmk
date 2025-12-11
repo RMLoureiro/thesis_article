@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber template"] 1765462226.63795 "template.bcf" "template.bbl" "template" 1765462684.04296 0
+["biber template"] 1765462226.63795 "template.bcf" "template.bbl" "template" 1765468212.04452 0
   "sample.bib" 1765462206.49222 760 d422ef114f88b06f50e43295a6ae3d0c ""
-  "template.bcf" 1765462683.85394 108102 1e7eab770a1b7a008a27e8d0a019482c "pdflatex"
+  "template.bcf" 1765468211.84144 108102 1e7eab770a1b7a008a27e8d0a019482c "pdflatex"
   (generated)
   "template.bbl"
   "template.blg"
   (rewritten before read)
-["pdflatex"] 1765462679.69773 "/Users/loureiro/Desktop/FCT/Thesis RL/thesis_article/template.tex" "template.pdf" "template" 1765462684.04347 0
-  "/Users/loureiro/Desktop/FCT/Thesis RL/thesis_article/template.tex" 1765462679.05845 17372 3c17ec0981dbe0cbbf49ea1dbedb1165 ""
+["pdflatex"] 1765468206.61233 "/Users/loureiro/Desktop/FCT/Thesis RL/thesis_article/template.tex" "template.pdf" "template" 1765468212.04506 0
+  "/Users/loureiro/Desktop/FCT/Thesis RL/thesis_article/template.tex" 1765468205.78204 18985 caecca2173530e81e2996d7df950be5a ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -152,11 +152,11 @@
   "Figures/mobs_receive_justification_finalization.png" 1763086772.42659 379884 c1e44aafbdf7a08e5a8fa0498178dc14 ""
   "Figures/mobs_receive_main.png" 1763086773.73654 438807 bd4d092dec41b6cf7e769149345aec66 ""
   "Figures/mobs_receive_propose.png" 1763086775.06316 38928 a6783c3876356994ce92894211ce22f3 ""
-  "template.aux" 1765462683.85013 4886 24f5543533b4fbbed4b0dc2413c6ebfb "pdflatex"
+  "template.aux" 1765468211.83913 4886 24f5543533b4fbbed4b0dc2413c6ebfb "pdflatex"
   "template.bbl" 1765462233.08372 5936 8b63d55f5858899f34232c3442ceb4b3 "biber template"
-  "template.out" 1765462683.8524 387 ab6e0eb55b4bd66f303dffe5b6177ad4 "pdflatex"
-  "template.run.xml" 1765462683.85575 2329 dd0b28ad5248dccc56c9d3651d0f9aad "pdflatex"
-  "template.tex" 1765462679.05845 17372 3c17ec0981dbe0cbbf49ea1dbedb1165 ""
+  "template.out" 1765468211.84013 387 ab6e0eb55b4bd66f303dffe5b6177ad4 "pdflatex"
+  "template.run.xml" 1765468211.84281 2329 dd0b28ad5248dccc56c9d3651d0f9aad "pdflatex"
+  "template.tex" 1765468205.78204 18985 caecca2173530e81e2996d7df950be5a ""
   (generated)
   "template.aux"
   "template.bcf"
